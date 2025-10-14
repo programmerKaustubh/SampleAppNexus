@@ -36,17 +36,18 @@ import androidx.compose.ui.unit.dp
 import us.example.sampleappnexus.ui.theme.SampleAppNexusTheme
 import androidx.compose.ui.text.input.ImeAction
 
+/**
+ * MainActivity is the main entry point of the application.
+ * It sets up the UI using Jetpack Compose and provides navigation between different form screens
+ * that demonstrate proper autofill implementation for various use cases (personal, financial, job application).
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             SampleAppNexusTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    UserPersonalInfoForm(modifier = Modifier.padding(innerPadding)){ userInfo ->
-                        Log.d("MainActivity", "User Info: $userInfo")
-                    }
-                }
+                AppNavigation()
             }
         }
     }
@@ -72,7 +73,10 @@ fun UserPersonalInfoForm(
     var country by remember { mutableStateOf("") }
     var cpf by remember { mutableStateOf("") }
     var ssn by remember { mutableStateOf("") }
-
+    var ingredients by remember { mutableStateOf("") }
+    var steps by remember { mutableStateOf("") }
+    var region by remember { mutableStateOf("") }
+    var type by remember { mutableStateOf("") }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -223,7 +227,7 @@ fun UserPersonalInfoForm(
             label = { Text("CPF Number") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth().autofill(AutofillType.IDENTITY_NUMBER).semantics{
-                this.contentDescription = "IDENTITY NUMBER"
+                this.contentDescription = "CPF"
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
@@ -238,16 +242,73 @@ fun UserPersonalInfoForm(
             label = { Text("SSN") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth().autofill(AutofillType.IDENTITY_NUMBER).semantics{
-                this.contentDescription = "IDENTITY NUMBER"
+                this.contentDescription = "SSN"
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Number
+            )
+        )
+
+        OutlinedTextField(
+            value = ingredients,
+            onValueChange = { ingredients = it },
+            label = { Text("Ingredients") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth().autofill(AutofillType.IDENTITY_NUMBER).semantics{
+                this.contentDescription = "Ingredients"
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Text
+            )
+        )
+
+        OutlinedTextField(
+            value = steps,
+            onValueChange = { steps = it },
+            label = { Text("Steps") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth().autofill(AutofillType.IDENTITY_NUMBER).semantics{
+                this.contentDescription = "Steps"
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Text
+            )
+        )
+
+        OutlinedTextField(
+            value = region,
+            onValueChange = { region = it },
+            label = { Text("Region") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth().autofill(AutofillType.IDENTITY_NUMBER).semantics{
+                this.contentDescription = "Region"
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Text
+            )
+        )
+
+        OutlinedTextField(
+            value = type,
+            onValueChange = { type = it },
+            label = { Text("Type") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth().autofill(AutofillType.IDENTITY_NUMBER).semantics{
+                this.contentDescription = "Type"
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Text
             ),
             keyboardActions = KeyboardActions(
                 onDone = { focusManager.clearFocus() }
             )
         )
+
 
         Button(
             onClick = {

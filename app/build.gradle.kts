@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
     implementation ("androidx.compose.ui:ui:1.8.3")
     implementation ("androidx.compose.material3:material3:1.3.2")
 
