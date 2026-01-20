@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.sp
 fun HomeScreen(
     onNavigateToPersonalInfo: () -> Unit,
     onNavigateToFinancial: () -> Unit,
-    onNavigateToJobApplication: () -> Unit
+    onNavigateToJobApplication: () -> Unit,
+    onNavigateToTestErrors: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -123,6 +124,40 @@ fun HomeScreen(
                     text = "Work history, education, references",
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Test Errors Button - For testing TestNexus Health Dashboard
+        ElevatedCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp),
+            onClick = onNavigateToTestErrors,
+            colors = CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.errorContainer
+            )
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Test Errors",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onErrorContainer
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Trigger crashes, ANRs, memory issues",
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onErrorContainer.copy(alpha = 0.7f)
                 )
             }
         }

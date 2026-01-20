@@ -16,6 +16,7 @@ sealed class Screen(val route: String) {
     data object PersonalInfo : Screen("personal_info")
     data object Financial : Screen("financial")
     data object JobApplication : Screen("job_application")
+    data object TestErrors : Screen("test_errors")
 }
 
 /**
@@ -44,6 +45,9 @@ fun AppNavigation(
                 },
                 onNavigateToJobApplication = {
                     navController.navigate(Screen.JobApplication.route)
+                },
+                onNavigateToTestErrors = {
+                    navController.navigate(Screen.TestErrors.route)
                 }
             )
         }
@@ -69,6 +73,15 @@ fun AppNavigation(
         // Job Application Form Screen
         composable(Screen.JobApplication.route) {
             JobApplicationScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        // Test Errors Screen - For testing TestNexus Health Dashboard
+        composable(Screen.TestErrors.route) {
+            TestErrorsScreen(
                 onNavigateBack = {
                     navController.popBackStack()
                 }
