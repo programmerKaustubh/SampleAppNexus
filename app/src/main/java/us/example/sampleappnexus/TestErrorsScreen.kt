@@ -113,6 +113,48 @@ fun TestErrorsScreen(
                 isDestructive = true
             )
 
+            ErrorButton(
+                title = "Stack Overflow",
+                description = "Trigger a StackOverflowError via infinite recursion",
+                onClick = { triggerStackOverflow() },
+                isDestructive = true
+            )
+
+            ErrorButton(
+                title = "Concurrent Modification",
+                description = "Trigger a ConcurrentModificationException",
+                onClick = { triggerConcurrentModification() },
+                isDestructive = true
+            )
+
+            ErrorButton(
+                title = "Class Cast Exception",
+                description = "Trigger a ClassCastException",
+                onClick = { triggerClassCastException() },
+                isDestructive = true
+            )
+
+            ErrorButton(
+                title = "Unsupported Operation",
+                description = "Trigger an UnsupportedOperationException",
+                onClick = { triggerUnsupportedOperation() },
+                isDestructive = true
+            )
+
+            ErrorButton(
+                title = "Assertion Error",
+                description = "Trigger an AssertionError",
+                onClick = { triggerAssertionError() },
+                isDestructive = true
+            )
+
+            ErrorButton(
+                title = "Unique Timestamped Crash",
+                description = "Guaranteed new crash signature every time",
+                onClick = { triggerUniqueCrash() },
+                isDestructive = true
+            )
+
             Spacer(modifier = Modifier.height(16.dp))
 
             // ========== ANR SECTION ==========
@@ -245,6 +287,38 @@ private fun triggerNumberFormatException() {
 
 private fun triggerIllegalArgumentException() {
     throw IllegalArgumentException("This is a test IllegalArgumentException from SampleAppNexus")
+}
+
+private fun triggerStackOverflow() {
+    fun recurse(depth: Int): Int = recurse(depth + 1)
+    recurse(0)
+}
+
+private fun triggerConcurrentModification() {
+    val list = mutableListOf("a", "b", "c", "d")
+    for (item in list) {
+        if (item == "b") list.remove(item)
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+private fun triggerClassCastException() {
+    val obj: Any = "This is a String"
+    val number = obj as Int
+    println(number)
+}
+
+private fun triggerUnsupportedOperation() {
+    val list = listOf("a", "b", "c")
+    (list as MutableList<String>).add("d")
+}
+
+private fun triggerAssertionError() {
+    assert(false) { "Test AssertionError from SampleAppNexus triggered at ${System.currentTimeMillis()}" }
+}
+
+private fun triggerUniqueCrash() {
+    throw RuntimeException("Unique crash #${System.currentTimeMillis()} from SampleAppNexus")
 }
 
 private fun triggerAnr() {
